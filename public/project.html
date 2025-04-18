@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gestion des Projets</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100 min-h-screen flex flex-col items-center">
+    <header class="bg-red-600 text-white w-full p-4 text-center">
+        <h1 class="text-2xl font-bold">Gestion des Projets</h1>
+        <a href="index.php" class="text-white hover:underline mt-2 inline-block">Retour à l'accueil</a>
+    </header>
+    <main class="w-full max-w-4xl bg-white shadow-lg rounded-lg p-8 mt-6">
+        <div id="messageArea" class="hidden mb-4 p-3 rounded text-white"></div>
+        
+        <h2 class="text-xl font-semibold text-gray-800 mb-4">Soumettre un Projet</h2>
+        <form id="projectForm" class="space-y-4">
+            <div>
+                <label for="titre" class="block text-sm font-medium text-gray-700">Titre du projet</label>
+                <input type="text" id="titre" name="titre" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+            </div>
+            <div>
+                <label for="description" class="block text-sm font-medium text-gray-700">Description</label>
+                <textarea id="description" name="description" rows="4" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500"></textarea>
+            </div>
+            <div>
+                <label for="idEquipe" class="block text-sm font-medium text-gray-700">Équipe</label>
+                <select id="idEquipe" name="idEquipe" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm focus:outline-none focus:ring-2 focus:ring-red-500 focus:border-red-500">
+                    <option value="">Sélectionnez une équipe</option>
+                    <!-- Les équipes seront chargées dynamiquement -->
+                </select>
+            </div>
+            <button type="submit" class="w-full bg-red-500 text-white py-2 rounded-lg shadow-md hover:bg-red-600 transition">
+                Soumettre le projet
+            </button>
+        </form>
+        
+        <div class="mt-8">
+            <h2 class="text-xl font-semibold text-gray-800 mb-4">Projets soumis</h2>
+            <table class="table-auto w-full bg-white shadow rounded">
+                <thead class="bg-gray-200">
+                    <tr>
+                        <th class="px-4 py-2 text-left">Titre</th>
+                        <th class="px-4 py-2 text-left">Description</th>
+                        <th class="px-4 py-2 text-center">Équipe</th>
+                        <th class="px-4 py-2 text-center">Statut</th>
+                        <th class="px-4 py-2 text-center">Actions</th>
+                    </tr>
+                </thead>
+                <tbody id="projetsTable">
+                    <!-- Les projets seront ajoutés ici dynamiquement -->
+                    <tr>
+                        <td colspan="5" class="border px-4 py-2 text-center">Chargement des projets...</td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+    </main>
+    
+    <script src="js/scripts.js"></script>
+</body>
+</html>

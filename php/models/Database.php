@@ -1,31 +1,20 @@
 <?php
-class Database {
-    private $host = 'localhost';
-    private $db_name = 'hackaton';
-    private $username = 'root';
-    private $password = '';
-    private $conn;
+function connectDatabase() {
+    $host = '127.0.0.1';
+    $dbName = 'hackaton';
+    $username = 'root';
+    $password = '';
 
-    public function __construct() {
-        $this->connect();
-    }
+    $dsn = "mysql:host=$host;dbname=$dbName;charset=utf8";
 
-    public function connect() {
-        $this->conn = null;
-
-        try {
-            $this->conn = new PDO("mysql:host=" . $this->host . ";dbname=" . $this->db_name, $this->username, $this->password);
-            $this->conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch (PDOException $exception) {
-            error_log("Test log: La connexion a échoué.", 3, "c:/xampp/php/logs/error.log");
-            error_log("Connection error: " . $exception->getMessage(), 3, "c:/xampp/php/logs/error.log");
-        }
-
-        return $this->conn;
-    }
-
-    public function getConnection() {
-        return $this->conn;
+    try {
+        $conn = new PDO($dsn, $username, $password);
+        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $conn->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        return $conn;
+    } catch (PDOException $e) {
+        error_log("Database connection error: " . $e->getMessage());
+        return null;
     }
 }
 ?>

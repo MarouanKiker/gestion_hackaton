@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Hackathon Management</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-100">
+    <!-- Header -->
+    <header class="bg-gradient-to-r from-blue-500 to-purple-600 text-white py-6 shadow-lg">
+        <div class="container mx-auto text-center">
+            <h1 class="text-4xl font-bold">Hackathon Management System</h1>
+            <p class="mt-2 text-lg">Simplifiez l'organisation et la gestion de votre hackathon</p>
+        </div>
+    </header>
+
+    <!-- Main Content -->
+    <main class="container mx-auto mt-10 px-4">
+        <!-- Welcome Section -->
+        <section class="text-center mb-12">
+            <h2 class="text-3xl font-bold text-gray-800">Bienvenue sur la plateforme</h2>
+            <p class="mt-4 text-gray-600">Explorez les différentes sections pour gérer les participants, les équipes, les projets, et bien plus encore.</p>
+        </section>
+
+        <!-- Navigation Cards -->
+        <section class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <!-- Participant Section -->
+            <a href="participant.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-blue-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5.121 17.804A4 4 0 016 16h12a4 4 0 01.879 1.804M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Espace Participant</h3>
+                <p class="mt-2 text-gray-600">Inscrivez-vous et soumettez vos projets.</p>
+            </a>
+
+            <!-- Admin Section -->
+            <a href="admin.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-green-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9.75 9.75h4.5m-2.25 0v6m-6.75 6.75h12a2.25 2.25 0 002.25-2.25V5.25A2.25 2.25 0 0016.5 3H7.5A2.25 2.25 0 005.25 5.25v13.5A2.25 2.25 0 007.5 21z" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Espace Administrateur</h3>
+                <p class="mt-2 text-gray-600">Gérez les utilisateurs, équipes et projets.</p>
+            </a>
+
+            <!-- Teams Section -->
+            <a href="team.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-yellow-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 20h5V4H2v16h5m10 0v-4a2 2 0 00-2-2H9a2 2 0 00-2 2v4m10 0H7" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Gestion des Équipes</h3>
+                <p class="mt-2 text-gray-600">Créez et gérez vos équipes.</p>
+            </a>
+
+            <!-- Projects Section -->
+            <a href="project.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-red-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 16l-4-4m0 0l4-4m-4 4h16" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Gestion des Projets</h3>
+                <p class="mt-2 text-gray-600">Soumettez et évaluez les projets.</p>
+            </a>
+
+            <!-- Registration -->
+            <a href="register.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-indigo-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M18 9v3m0 0v3m0-3h3m-3 0h-3m-2-5a4 4 0 11-8 0 4 4 0 018 0z" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Inscription</h3>
+                <p class="mt-2 text-gray-600">Créez un nouveau compte.</p>
+            </a>
+
+            <!-- Login -->
+            <a href="login.html" class="block bg-white shadow-lg rounded-lg p-6 text-center hover:shadow-xl transition">
+                <div class="text-purple-500">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-12 w-12 mx-auto" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M11 16l-4-4m0 0l4-4m-4 4h14m-5 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h7a3 3 0 013 3v1" />
+                    </svg>
+                </div>
+                <h3 class="mt-4 text-xl font-bold text-gray-800">Connexion</h3>
+                <p class="mt-2 text-gray-600">Accédez à votre compte.</p>
+            </a>
+        </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="bg-gray-800 text-white py-4 mt-12">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 Hackathon Management. Tous droits réservés.</p>
+        </div>
+    </footer>
+</body>
+</html>

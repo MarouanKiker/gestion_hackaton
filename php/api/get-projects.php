@@ -2,24 +2,18 @@
 header('Content-Type: application/json');
 require_once '../models/Database.php';
 
-try {
-    // Connect to the database
-    $db = new Database();
-    $conn = $db->getConnection();
 
-    // Query to fetch projects
-    $query = "SELECT id, title, description FROM projects";
-    $stmt = $conn->prepare($query);
-    $stmt->execute();
+$conn = connectDatabase();
 
-    // Fetch all projects as an associative array
+$query = "SELECT IdProjet AS id, titre AS title, description FROM Projet";
+$stmt = $conn->prepare($query);
+$success = $stmt->execute();
+
+if ($success) {
     $projects = $stmt->fetchAll(PDO::FETCH_ASSOC);
-
-    // Return the projects as JSON
     echo json_encode($projects);
-} catch (Exception $e) {
-    // Return an error response if something goes wrong
+} else {
     http_response_code(500);
-    echo json_encode(['error' => 'An error occurred while fetching projects.', 'details' => $e->getMessage()]);
+    echo json_encode(['error' => 'Une erreur est survenue lors de la récupération des projets.']);
 }
 ?>
