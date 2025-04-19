@@ -3,8 +3,6 @@ session_start();
 require_once '../models/Database.php';
 
 
-header('Content-Type: application/json');
-
 $db = connectDatabase();
 
 $method = $_SERVER['REQUEST_METHOD'];
@@ -14,28 +12,30 @@ if ($method == 'GET' && $action == 'list') {
     $query = "SELECT * FROM equipe";
     $result = $db->query($query);
     $teams = $result->fetchAll(PDO::FETCH_ASSOC);
-    echo json_encode($teams);
-    exit;
+    foreach ($teams as $team) {
+        echo "Equipe: " . $team['nom'] . ", Taille max: " . $team['tailleMax'] . "\n";
+    }
+    return;
 }
 
 if ($method == 'DELETE' && $action == 'delete') {
     if (!isset($_SESSION['user']) || $_SESSION['user']['role'] != 'admin') {
-        echo json_encode(['success' => false, 'message' => 'Accès refusé.']);
-        exit;
+        echo "Accès refusé.";
+        return;
     }
     $id = isset($_GET['id']) ? $_GET['id'] : null;
     if (!$id) {
-        echo json_encode(['success' => false, 'message' => 'ID manquant pour suppression.']);
-        exit;
+        echo "ID manquant pour suppression.";
+        return;
     }
     $query = "DELETE FROM equipe WHERE IdEquipe = $id";
     $result = $db->exec($query);
     if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Équipe supprimée avec succès.']);
+        echo "Équipe supprimée avec succès.";
     } else {
-        echo json_encode(['success' => false, 'message' => 'Erreur lors de la suppression.']);
+        echo "Erreur lors de la suppression.";
     }
-    exit;
+    return;
 }
 
 if ($method == 'POST') {
@@ -43,19 +43,19 @@ if ($method == 'POST') {
     $teamSize = isset($_POST['teamSize']) ? $_POST['teamSize'] : null;
 
     if (empty($teamName) || empty($teamSize)) {
-        echo json_encode(['success' => false, 'message' => 'Tous les champs sont requis.']);
-        exit;
+        echo "Tous les champs sont requis.";
+        return;
     }
 
     $query = "INSERT INTO equipe (nom, tailleMax) VALUES ('$teamName', $teamSize)";
     $result = $db->exec($query);
     if ($result) {
-        echo json_encode(['success' => true, 'message' => 'Équipe créée avec succès.']);
+        echo "Équipe créée avec succès.";
     } else {
-        echo json_encode(['success' => false, 'message' => 'Erreur lors de la création de l\'équipe.']);
+        echo "Erreur lors de la création de l'équipe.";
     }
-    exit;
+    return;
 }
 
-echo json_encode(['success' => false, 'message' => 'Méthode non autorisée ou action inconnue.']);
+echo "Méthode non autorisée ou action inconnue.";
 ?>

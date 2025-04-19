@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
@@ -12,7 +12,7 @@
 
         <div id="messageArea" class="hidden mb-4 p-3 rounded text-white"></div>
 
-        <form id="registerForm" method="POST" action="../php/controllers/register.php" class="space-y-4">
+        <form id="registerForm" class="space-y-4">
             <div>
                 <label for="nom" class="block text-sm font-medium text-gray-700">Nom :</label>
                 <input type="text" id="nom" name="nom" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
@@ -36,21 +36,17 @@
             <div>
                 <label for="role" class="block text-sm font-medium text-gray-700">Rôle :</label>
                 <select id="role" name="role" required class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm">
-                    <option value="utilisateur">Utilisateur</option>
+                    <option value="participant">Participant</option>
                     <option value="admin">Admin</option>
                     <option value="jury">Jury</option>
                     <option value="mentor">Mentor</option>
                 </select>
             </div>
-            <div id="idEquipeDiv" class="hidden">
-                <label for="idEquipe" class="block text-sm font-medium text-gray-700">Id Equipe (pour Participant) :</label>
-                <input type="number" id="idEquipe" name="idEquipe" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
-            </div>
-            <div id="specialiteDiv" class="hidden">
+            <div id="specialiteField" class="hidden">
                 <label for="specialite" class="block text-sm font-medium text-gray-700">Spécialité (pour Jury) :</label>
                 <input type="text" id="specialite" name="specialite" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
             </div>
-            <div id="domaineExpretiseDiv" class="hidden">
+            <div id="domaineExpretiseField" class="hidden">
                 <label for="domaineExpretise" class="block text-sm font-medium text-gray-700">Domaine d'expertise (pour Mentor) :</label>
                 <input type="text" id="domaineExpretise" name="domaineExpretise" class="w-full mt-1 px-4 py-2 border border-gray-300 rounded-lg shadow-sm" />
             </div>
@@ -58,49 +54,58 @@
                 S'inscrire
             </button>
         </form>
+
+        <div class="mt-4 text-center">
+            <p class="text-gray-600">Déjà inscrit? <a href="login.html" class="text-green-600 hover:underline">Se connecter</a></p>
+        </div>
+
+        <div class="mt-6 text-center">
+            <a href="index.php" class="text-green-600 hover:underline">Retour à l'accueil</a>
+        </div>
     </div>
-    
+
     <script>
-        const roleSelect = document.getElementById('role');
-        const specialiteDiv = document.getElementById('specialiteDiv');
-        const domaineExpretiseDiv = document.getElementById('domaineExpretiseDiv');
+        const registerForm = document.getElementById('registerForm');
         const messageArea = document.getElementById('messageArea');
-    
-        roleSelect.addEventListener('change', function() {
-            if (this.value === 'jury') {
-                specialiteDiv.classList.remove('hidden');
-                domaineExpretiseDiv.classList.add('hidden');
-            } else if (this.value === 'mentor') {
-                specialiteDiv.classList.add('hidden');
-                domaineExpretiseDiv.classList.remove('hidden');
+        const roleSelect = document.getElementById('role');
+        const specialiteField = document.getElementById('specialiteField');
+        const domaineExpretiseField = document.getElementById('domaineExpretiseField');
+
+        roleSelect.addEventListener('change', () => {
+            const role = roleSelect.value;
+            if (role === 'jury') {
+                specialiteField.classList.remove('hidden');
+                domaineExpretiseField.classList.add('hidden');
+            } else if (role === 'mentor') {
+                domaineExpretiseField.classList.remove('hidden');
+                specialiteField.classList.add('hidden');
             } else {
-                specialiteDiv.classList.add('hidden');
-                domaineExpretiseDiv.classList.add('hidden');
+                specialiteField.classList.add('hidden');
+                domaineExpretiseField.classList.add('hidden');
             }
         });
-    
-        const registerForm = document.getElementById('registerForm');
-    
+
         registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
+            messageArea.classList.add('hidden');
             const formData = new FormData(registerForm);
-    
+
             try {
                 const response = await fetch('../php/controllers/register.php', {
                     method: 'POST',
                     body: formData
                 });
-                const text = await response.text();
-    
-                if (text.includes("réussie")) {
-                    messageArea.textContent = text;
+                const result = await response.json();
+
+                if (result.success) {
+                    messageArea.textContent = result.message;
                     messageArea.className = 'mb-4 p-3 rounded text-white bg-green-600';
                     messageArea.classList.remove('hidden');
-                    setTimeout(() => {
-                        window.location.href = 'login.html';
-                    }, 1500);
+                    registerForm.reset();
+                    specialiteField.classList.add('hidden');
+                    domaineExpretiseField.classList.add('hidden');
                 } else {
-                    messageArea.textContent = text;
+                    messageArea.textContent = result.message;
                     messageArea.className = 'mb-4 p-3 rounded text-white bg-red-600';
                     messageArea.classList.remove('hidden');
                 }
@@ -111,8 +116,5 @@
             }
         });
     </script>
-    
-    
-    
 </body>
 </html>
